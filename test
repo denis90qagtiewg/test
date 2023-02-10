@@ -184,6 +184,7 @@ function boxBase:Update()
 
 	--calculations--
 	local cf = self.PrimaryPart.CFrame
+	local hum = self.Player.Character:FindFirstChild("Humanoid")
 	if ESP.FaceCamera then
 		cf = CFrame.new(cf.p, cam.CFrame.p)
 	end
@@ -235,7 +236,7 @@ function boxBase:Update()
 			
 			self.Components.Health.Visible = true
 			self.Components.Health.Position = Vector2.new(TagPos.X, TagPos.Y + 24)
-			self.Components.Health.Text = self.PrimaryPart.Parent:FindFirstChild("Humanoid").Heatlh.."/"..self.PrimaryPart.Parent:FindFirstChild("Humanoid").MaxHealth
+			self.Components.Health.Text = hum.Health.."/"..hum.MaxHealth
 			self.Components.Health.Color = color
 		else
 			self.Components.Name.Visible = false
