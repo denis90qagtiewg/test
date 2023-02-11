@@ -221,42 +221,9 @@ function boxBase:Update()
 
 	if ESP.Names then
 		local TagPos, Vis5 = WorldToViewportPoint(cam, locs.TagPos.p)
-		
+
 		local char = self.PrimaryPart.Parent
 		
-		local head = char["Head"];
-		local torso = char["HumanoidRootPart"];
-		local rarm = char["RightUpperArm"];
-		local rarm1 = char["RightLowerArm"];
-		local larm = char["LeftUpperArm"];
-		local larm1 = char["LeftLowerArm"];
-		local rleg = char["RightUpperLeg"];
-		local rleg1 = char["RightLowerLeg"];
-		local lleg = char["LeftUpperLeg"];
-		local lleg1 = char["LeftLowerLeg"];
-		
-		local p1 = head.CFrame.Position;
-		local p2 = torso.CFrame.Position;
-		local p3 = rarm.CFrame.Position;
-		local p4 = larm.CFrame.Position;
-		local p5 = rleg.CFrame.Position;
-		local p6 = lleg.CFrame.Position;
-		local p7 = rarm1.CFrame.Position;
-		local p8 = larm1.CFrame.Position;
-		local p9 = rleg1.CFrame.Position;
-		local p10 = lleg1.CFrame.Position;
-
-		local sp1,v1 = cam:WorldToViewportPoint(p1)
-		local sp2,v2 = cam:WorldToViewportPoint(p2)
-		local sp3,v3 = cam:WorldToViewportPoint(p3)
-		local sp4,v4 = cam:WorldToViewportPoint(p4)
-		local sp5,v5 = cam:WorldToViewportPoint(p5)
-		local sp6,v6 = cam:WorldToViewportPoint(p6)
-		local sp7,v7 = cam:WorldToViewportPoint(p7)
-		local sp8,v8 = cam:WorldToViewportPoint(p8)
-		local sp9,v9 = cam:WorldToViewportPoint(p9)
-		local sp10,v10 = cam:WorldToViewportPoint(p10)
-
 		if Vis5 then
 			self.Components.Name.Visible = true
 			self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y)
@@ -267,81 +234,13 @@ function boxBase:Update()
 			self.Components.Distance.Position = Vector2.new(TagPos.X, TagPos.Y + 14)
 			self.Components.Distance.Text = math.floor((cam.CFrame.p - cf.p).magnitude) .."m away"
 			self.Components.Distance.Color = color
-			
-			
-			local shead = self.Components.shead
-			local srarm = self.Components.srarm
-			local srleg = self.Components.srleg
-			local slarm = self.Components.slarm
-			local slleg = self.Components.slleg
-			local srarm1 = self.Components.srarm1
-			local srleg1 = self.Components.srleg1
-			local slarm1 = self.Components.slarm1
-			local slleg1 = self.Components.slleg1
-			
-			shead.Visible = true
-			srarm.Visible = true
-			srleg.Visible = true
-			slarm.Visible = true
-			slleg.Visible = true
-			srarm1.Visible = true
-			srleg1.Visible = true
-			slarm1.Visible = true
-			slleg1.Visible = true
-			
-			shead.From = Vector2.new(sp1.X, sp1.Y)
-			shead.To = Vector2.new(sp2.X, sp2.Y)
-
-			srarm.From = Vector2.new(sp2.X, sp2.Y)
-			srarm.To = Vector2.new(sp3.X, sp3.Y)
-
-			srleg.From = Vector2.new(sp2.X, sp2.Y)
-			srleg.To = Vector2.new(sp5.X, sp5.Y)
-
-			slleg.From = Vector2.new(sp2.X, sp2.Y)
-			slleg.To = Vector2.new(sp6.X, sp6.Y)
-
-			slarm.From = Vector2.new(sp2.X, sp2.Y)
-			slarm.To = Vector2.new(sp4.X, sp4.Y)
-
-			slarm1.From = Vector2.new(sp4.X, sp4.Y)
-			slarm1.To = Vector2.new(sp8.X, sp8.Y)
-
-			srarm1.From = Vector2.new(sp3.X, sp3.Y)
-			srarm1.To = Vector2.new(sp7.X, sp7.Y)
-
-			srleg1.From = Vector2.new(sp5.X, sp5.Y)
-			srleg1.To = Vector2.new(sp9.X, sp9.Y)
-
-			slleg1.From = Vector2.new(sp6.X, sp6.Y)
-			slleg1.To = Vector2.new(sp10.X, sp10.Y)
 		else
 			self.Components.Name.Visible = false
 			self.Components.Distance.Visible = false
-			
-			self.Components.shead.Visible = true
-			self.Components.srarm.Visible = true
-			self.Components.srleg.Visible = true
-			self.Components.slleg.Visible = true
-			self.Components.slarm.Visible = true
-			self.Components.slarm1.Visible = true
-			self.Components.srarm1.Visible = true
-			self.Components.srleg1.Visible = true
-			self.Components.slleg1.Visible = true
 		end
 	else
 		self.Components.Name.Visible = false
 		self.Components.Distance.Visible = false
-		
-		self.Components.shead.Visible = true
-		self.Components.srarm.Visible = true
-		self.Components.srleg.Visible = true
-		self.Components.slleg.Visible = true
-		self.Components.slarm.Visible = true
-		self.Components.slarm1.Visible = true
-		self.Components.srarm1.Visible = true
-		self.Components.srleg1.Visible = true
-		self.Components.slleg1.Visible = true
 	end
 
 	if ESP.Tracers then
@@ -414,68 +313,6 @@ function ESP:Add(obj, options)
 		Visible = self.Enabled and self.Tracers
 	})
 	
-	box.Components["srarm"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["srleg"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["slarm"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["slleg"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["shead"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["srarm1"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["srleg1"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["slarm1"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
-	
-	box.Components["slleg1"] = Draw("Line", {
-		Thickness = ESP.Thickness,
-		Color = box.Color,
-		Transparency = 1,
-		Visible = self.Enabled and self.Tracers
-	})
 	self.Objects[obj] = box
 
 	obj.AncestryChanged:Connect(function(_, parent)
