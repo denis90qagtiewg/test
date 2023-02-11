@@ -511,7 +511,7 @@ function ESP:Add(obj, options)
 	local lleg = char["LeftUpperLeg"];
 	local lleg1 = char["LeftLowerLeg"];
 	
-	local _, OnScreen = workspace.CurrentCamera:WorldToScreenPoint(head.Position, torso.Position, rarm.Position, rarm1.Position, larm.Position, larm1.Position, rleg.Positiom, rleg1.Position, lleg.Position, lleg1.Position)
+	local _, OnScreen = workspace.CurrentCamera:WorldToScreenPoint(head.Position, torso.Position, rarm.Position, rarm1.Position, larm.Position, larm1.Position, rleg.Position, rleg1.Position, lleg.Position, lleg1.Position)
 	
 	
 	if OnScreen and ESP.AutoRemove ~= false then
