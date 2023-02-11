@@ -497,8 +497,6 @@ function ESP:Add(obj, options)
 			end
 		end)
 	end
-	
-	local char = obj.PrimaryPart.Parent
 
 	return box
 end
