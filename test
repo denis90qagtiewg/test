@@ -500,27 +500,6 @@ function ESP:Add(obj, options)
 	
 	local char = obj.PrimaryPart.Parent
 
-	local head = char["Head"];
-	local torso = char["HumanoidRootPart"];
-	local rarm = char["RightUpperArm"];
-	local rarm1 = char["RightLowerArm"];
-	local larm = char["LeftUpperArm"];
-	local larm1 = char["LeftLowerArm"];
-	local rleg = char["RightUpperLeg"];
-	local rleg1 = char["RightLowerLeg"];
-	local lleg = char["LeftUpperLeg"];
-	local lleg1 = char["LeftLowerLeg"];
-	
-	local _, OnScreen = workspace.CurrentCamera:WorldToScreenPoint(head.Position, torso.Position, rarm.Position, rarm1.Position, larm.Position, larm1.Position, rleg.Position, rleg1.Position, lleg.Position, lleg1.Position)
-	
-	
-	if OnScreen and ESP.AutoRemove ~= false then
-		print("Visible")
-	else
-		box:Remove()
-	end
-
-
 	return box
 end
 
