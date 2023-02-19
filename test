@@ -7,6 +7,8 @@ local ESP = {
 	Color = Color3.fromRGB(255, 255, 255),
 	FaceCamera = false,
 	Names = true,
+	Distance = true,
+	Health = true,
 	TeamColor = true,
 	Thickness = 2,
 	AttachShift = 1,
@@ -183,6 +185,9 @@ function boxBase:Update()
 	end
 
 	--calculations--
+	local char = self.PrimaryPart.Parent
+	local hum = char.Humanoid
+	
 	local cf = self.PrimaryPart.CFrame
 	if ESP.FaceCamera then
 		cf = CFrame.new(cf.p, cam.CFrame.p)
@@ -221,25 +226,46 @@ function boxBase:Update()
 
 	if ESP.Names then
 		local TagPos, Vis5 = WorldToViewportPoint(cam, locs.TagPos.p)
-
-		local char = self.PrimaryPart.Parent
 		
 		if Vis5 then
 			self.Components.Name.Visible = true
 			self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y)
 			self.Components.Name.Text = self.Name
 			self.Components.Name.Color = color
-
+		else
+			self.Components.Name.Visible = false
+		end
+	else
+		self.Components.Name.Visible = false
+	end
+	
+	if ESP.Distance then
+		local TagPos, VisA = WorldToViewportPoint(cam, locs.TagPos.p)
+		
+		if VisA then
 			self.Components.Distance.Visible = true
 			self.Components.Distance.Position = Vector2.new(TagPos.X, TagPos.Y + 14)
 			self.Components.Distance.Text = math.floor((cam.CFrame.p - cf.p).magnitude) .."m away"
 			self.Components.Distance.Color = color
 		else
-			self.Components.Name.Visible = false
 			self.Components.Distance.Visible = false
 		end
 	else
-		self.Components.Name.Visible = false
+		self.Components.Distance.Visible = false
+	end
+	
+	if ESP.Health then
+		local TagPos, VisB = WorldToViewportPoint(cam, locs.TagPos.p)
+
+		if VisB then
+			self.Components.Health.Visible = true
+			self.Components.Health.Position = Vector2.new(TagPos.X, TagPos.Y + -14)
+			self.Components.Health.Text = hum.Health.."/"..hum.MaxHealth
+			self.Components.Health.Color = color
+		else
+			self.Components.Distance.Visible = false
+		end
+	else
 		self.Components.Distance.Visible = false
 	end
 
@@ -299,6 +325,14 @@ function ESP:Add(obj, options)
 		Visible = self.Enabled and self.Names
 	})
 	box.Components["Distance"] = Draw("Text", {
+		Color = box.Color,
+		Center = true,
+		Outline = true,
+		Size = 19,
+		Visible = self.Enabled and self.Names
+	})
+	
+	box.Components["Health"] = Draw("Text", {
 		Color = box.Color,
 		Center = true,
 		Outline = true,
