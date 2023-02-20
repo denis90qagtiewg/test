@@ -229,7 +229,7 @@ function boxBase:Update()
 		
 		if Vis5 then
 			self.Components.Name.Visible = true
-			self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y)
+			self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y + -14)
 			self.Components.Name.Text = self.Name
 			self.Components.Name.Color = color
 		else
@@ -244,7 +244,7 @@ function boxBase:Update()
 		
 		if VisA then
 			self.Components.Distance.Visible = true
-			self.Components.Distance.Position = Vector2.new(TagPos.X, TagPos.Y + 14)
+			self.Components.Distance.Position = Vector2.new(TagPos.X, TagPos.Y + -28)
 			self.Components.Distance.Text = math.floor((cam.CFrame.p - cf.p).magnitude) .."m away"
 			self.Components.Distance.Color = color
 		else
@@ -259,14 +259,14 @@ function boxBase:Update()
 
 		if VisB then
 			self.Components.Health.Visible = true
-			self.Components.Health.Position = Vector2.new(TagPos.X, TagPos.Y + -14)
+			self.Components.Health.Position = Vector2.new(TagPos.X, TagPos.Y + -42)
 			self.Components.Health.Text = hum.Health.."/"..hum.MaxHealth
 			self.Components.Health.Color = color
 		else
-			self.Components.Distance.Visible = false
+			self.Components.Health.Visible = false
 		end
 	else
-		self.Components.Distance.Visible = false
+		self.Components.Health.Visible = false
 	end
 
 	if ESP.Tracers then
