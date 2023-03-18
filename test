@@ -259,40 +259,51 @@ function boxBase:Update()
 	end
 	
 	if ESP.LookAngle then
-		local function updater()
-			local c
-			c = game:GetService("RunService").RenderStepped:Connect(function()
-				if eplr and char and char:FindFirstChild("Head") and char:FindFirstChild("Humanoid") and char.Humanoid.Health > 0 then
+		local TagPos, VisC = WorldToViewportPoint(cam, locs.TagPos.p)
+		
+		if VisC then
+			local function updater()
+				local c
+				c = game:GetService("RunService").RenderStepped:Connect(function()
+					if eplr and eplr.Character and eplr.Character:FindFirstChild("Head") and eplr.Character:FindFirstChild("Humanoid") and eplr.Character.Humanoid.Health > 0 then
 
-					for idx = 10, 1, -1 do
+						for idx = 10, 1, -1 do
 
-						local rayhit, hitpos = workspace:FindPartOnRayWithIgnoreList(Ray.new(char.Head.Position, char.Head.CFrame.LookVector * idx), {cam, char}, false, true, "")
+							local rayhit, hitpos = workspace:FindPartOnRayWithIgnoreList(Ray.new(eplr.Character.Head.Position, eplr.Character.Head.CFrame.LookVector * idx), {camera, player.Character}, false, true, "")
 
-						local viewportpointhit, isOnScreen = cam:WorldToViewportPoint(hitpos)
-						local headpos = cam:WorldToViewportPoint(char.Head.Position)
+							local viewportpointhit, isOnScreen = cam:WorldToViewportPoint(hitpos)
+							local headpos = cam:WorldToViewportPoint(cam.Character.Head.Position)
 
-						if isOnScreen then
-							self.Components.LookAngle.From = Vector2.new(headpos.X, headpos.Y)
-							self.Components.LookAngle.To = Vector2.new(viewportpointhit.X, viewportpointhit.Y)
-							self.Components.LookAngle.Visible = true
-							break
-						else
-							self.Components.LookAngle.Visible = false
+							if isOnScreen then
+
+								self.Components.LookAngle.From = Vector2.new(headpos.X, headpos.Y)
+								self.Components.LookAngle.To = Vector2.new(viewportpointhit.X, viewportpointhit.Y)
+								self.Components.LookAngle.Visible = true
+								break
+
+							else
+
+								self.Components.LookAngle.Visible = false
+
+							end
+
 						end
-					end
-				else
+					else
 
-					if char == nil then
-						c:Disconnect()
-					end
+						if eplr.Character == nil then
+							c:Disconnect()
+						end
 
-					self.Components.LookAngle.Visible = false
-				end
-			end)
-			coroutine.wrap(updater)
+						self.Components.LookAngle.Visible = false
+					end
+				end)
+			end
+			coroutine.wrap(updater)()
+		else
+			self.Components.LookAngle.Visible = false
 		end
 	else
-		
+		self.Components.LookAngle.Visible = false
 	end
 	
 	if ESP.Health then
