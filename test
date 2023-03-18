@@ -9,6 +9,7 @@ local ESP = {
 	Names = true,
 	Distance = true,
 	Health = true,
+	LookAngle = true,
 	TeamColor = true,
 	Thickness = 2,
 	AttachShift = 1,
@@ -24,6 +25,7 @@ local cam = workspace.CurrentCamera
 local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
 local mouse = plr:GetMouse()
+
 
 local V3new = Vector3.new
 local WorldToViewportPoint = cam.WorldToViewportPoint
@@ -188,6 +190,8 @@ function boxBase:Update()
 	local char = self.PrimaryPart.Parent
 	local hum = char.Humanoid
 	
+	local eplr = plrs:GetPlayerFromCharacter(char)
+	
 	local cf = self.PrimaryPart.CFrame
 	if ESP.FaceCamera then
 		cf = CFrame.new(cf.p, cam.CFrame.p)
@@ -252,6 +256,44 @@ function boxBase:Update()
 		end
 	else
 		self.Components.Distance.Visible = false
+	end
+	
+	if ESP.LookAngle then
+		local function updater()
+			local c
+			c = game:GetService("RunService").RenderStepped:Connect(function()
+				if eplr and char and char:FindFirstChild("Head") and char:FindFirstChild("Humanoid") and char.Humanoid.Health > 0 then
+
+					for idx = 10, 1, -1 do
+
+						local rayhit, hitpos = workspace:FindPartOnRayWithIgnoreList(Ray.new(char.Head.Position, char.Head.CFrame.LookVector * idx), {cam, char}, false, true, "")
+
+						local viewportpointhit, isOnScreen = cam:WorldToViewportPoint(hitpos)
+						local headpos = cam:WorldToViewportPoint(char.Head.Position)
+
+						if isOnScreen then
+							self.Components.LookAngle.From = Vector2.new(headpos.X, headpos.Y)
+							self.Components.LookAngle.To = Vector2.new(viewportpointhit.X, viewportpointhit.Y)
+							self.Components.LookAngle.Visible = true
+							break
+						else
+							self.Components.LookAngle.Visible = false
+						end
+
+					end
+				else
+
+					if char == nil then
+						c:Disconnect()
+					end
+
+					self.Components.LookAngle.Visible = false
+				end
+			end)
+		end
+		coroutine.wrap(updater)()
+	else
+		
 	end
 	
 	if ESP.Health then
@@ -333,6 +375,14 @@ function ESP:Add(obj, options)
 	})
 	
 	box.Components["Health"] = Draw("Text", {
+		Color = box.Color,
+		Center = true,
+		Outline = true,
+		Size = 19,
+		Visible = self.Enabled and self.Health
+	})
+	
+	box.Components["LookAngle"] = Draw("Line", {
 		Color = box.Color,
 		Center = true,
 		Outline = true,
