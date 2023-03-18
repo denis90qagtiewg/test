@@ -279,7 +279,6 @@ function boxBase:Update()
 						else
 							self.Components.LookAngle.Visible = false
 						end
-
 					end
 				else
 
@@ -290,6 +289,7 @@ function boxBase:Update()
 					self.Components.LookAngle.Visible = false
 				end
 			end)
+			coroutine.wrap(updater)
 		end
 	else
 		
