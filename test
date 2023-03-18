@@ -384,9 +384,8 @@ function ESP:Add(obj, options)
 	
 	box.Components["LookAngle"] = Draw("Line", {
 		Color = box.Color,
-		Center = true,
-		Outline = true,
-		Size = 19,
+		Thickness = ESP.Thickness,
+		Transparency = 0.5,
 		Visible = self.Enabled and self.Health
 	})
 
