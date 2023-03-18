@@ -291,7 +291,6 @@ function boxBase:Update()
 				end
 			end)
 		end
-		coroutine.wrap(updater)()
 	else
 		
 	end
@@ -385,7 +384,7 @@ function ESP:Add(obj, options)
 	box.Components["LookAngle"] = Draw("Line", {
 		Color = box.Color,
 		Thickness = ESP.Thickness,
-		Transparency = 0.5,
+		Transparency = 0,
 		Visible = self.Enabled and self.Health
 	})
 
