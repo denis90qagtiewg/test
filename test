@@ -189,9 +189,9 @@ function boxBase:Update()
 	--calculations--
 	local char = self.PrimaryPart.Parent
 	local hum = char.Humanoid
-	
+
 	local eplr = plrs:GetPlayerFromCharacter(char)
-	
+
 	local cf = self.PrimaryPart.CFrame
 	if ESP.FaceCamera then
 		cf = CFrame.new(cf.p, cam.CFrame.p)
@@ -230,7 +230,7 @@ function boxBase:Update()
 
 	if ESP.Names then
 		local TagPos, Vis5 = WorldToViewportPoint(cam, locs.TagPos.p)
-		
+
 		if Vis5 then
 			self.Components.Name.Visible = true
 			self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y + -14)
@@ -242,14 +242,16 @@ function boxBase:Update()
 	else
 		self.Components.Name.Visible = false
 	end
-	
+
 	if ESP.Distance then
 		local TagPos, VisA = WorldToViewportPoint(cam, locs.TagPos.p)
+		
+		local actualDis = math.floor((cam.CFrame.Position - cf.Position).Magnitude) / 3
 		
 		if VisA then
 			self.Components.Distance.Visible = true
 			self.Components.Distance.Position = Vector2.new(TagPos.X, TagPos.Y + -28)
-			self.Components.Distance.Text = math.floor((cam.CFrame.p - cf.p).magnitude) .."m away"
+			self.Components.Distance.Text = actualDis.."m away"
 			self.Components.Distance.Color = color
 		else
 			self.Components.Distance.Visible = false
@@ -257,7 +259,7 @@ function boxBase:Update()
 	else
 		self.Components.Distance.Visible = false
 	end
-	
+
 	if ESP.Health then
 		local TagPos, VisB = WorldToViewportPoint(cam, locs.TagPos.p)
 
@@ -335,7 +337,7 @@ function ESP:Add(obj, options)
 		Size = 19,
 		Visible = self.Enabled and self.Distance
 	})
-	
+
 	box.Components["Health"] = Draw("Text", {
 		Color = box.Color,
 		Center = true,
@@ -343,14 +345,14 @@ function ESP:Add(obj, options)
 		Size = 19,
 		Visible = self.Enabled and self.Health
 	})
-	
+
 	box.Components["Tracer"] = Draw("Line", {
 		Thickness = ESP.Thickness,
 		Color = box.Color,
 		Transparency = 1,
 		Visible = self.Enabled and self.Tracers
 	})
-	
+
 	self.Objects[obj] = box
 
 	obj.AncestryChanged:Connect(function(_, parent)
