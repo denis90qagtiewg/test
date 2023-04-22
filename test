@@ -246,7 +246,7 @@ function boxBase:Update()
 	if ESP.Distance then
 		local TagPos, VisA = WorldToViewportPoint(cam, locs.TagPos.p)
 		
-		local actualDis = math.floor((cam.CFrame.Position - cf.Position).Magnitude) / 3
+		local actualDis = math.floor((cam.CFrame.Position - cf.Position).Magnitude)
 		
 		if VisA then
 			self.Components.Distance.Visible = true
