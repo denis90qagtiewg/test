@@ -1,6 +1,5 @@
-local Services = sharedRequire('./Services.lua');
-local library = sharedRequire('../UILibrary.lua');
-local Signal = sharedRequire('./Signal.lua');
+local Services = loadstring(game:HttpGet("https://raw.githubusercontent.com/denis90qagtiewg/test/main/service"))();
+local Signal = loadstring(game:HttpGet("https://github.com/denis90qagtiewg/test/edit/main/signal"))();
 
 local Players, UserInputService, HttpService, CollectionService = Services:Get('Players', 'UserInputService', 'HttpService', 'CollectionService');
 local LocalPlayer = Players.LocalPlayer;
